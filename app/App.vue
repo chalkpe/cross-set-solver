@@ -1,23 +1,19 @@
 <template lang="pug">
-  #app
-    section.section: .container
-      h1.title LEVEL {{ level }}-{{ stage }}
-      h2.subtitle {{ size }} X {{ size }}
-
-      .columns(v-for='cells in data')
-        .column(v-for='values in cells')
-          cell(:values='values')
+  #app.unselectable(@contextmenu.prevent='')
+    section.section
+      puzzle(:puzzle='puzzle')
 </template>
 
 <script>
   import 'bulma'
   import sample from './assets/sample'
 
-  import Cell from './components/Cell.vue'
+  import Puzzle from './src/Puzzle'
+  import PuzzleComp from './components/Puzzle.vue'
 
   export default {
-    data: () => sample,
-    components: { Cell }
+    components: { Puzzle: PuzzleComp },
+    data: () => ({ puzzle: new Puzzle(sample) })
   }
 </script>
 
@@ -30,6 +26,13 @@
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+  }
+
+  .unselectable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 
   section {

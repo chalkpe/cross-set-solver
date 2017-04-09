@@ -1,11 +1,22 @@
 <template lang="pug">
-  .box.has-text-centered
-    span(v-for='number in values') {{ number }}
+  .box.has-text-centered(:class='cell.state', @click='rotate', @contextmenu.prevent='toggle')
+    span(v-for='number in cell.values') {{ number }}
 </template>
 
 <script>
   export default {
-    props: ['values']
+    props: ['cell'],
+
+    methods: {
+      rotate () {
+        if (this.cell.fixed) return
+        this.cell.rotate()
+      },
+
+      toggle () {
+        this.cell.toggle()
+      }
+    }
   }
 </script>
 
