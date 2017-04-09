@@ -8,7 +8,9 @@ const vueLoaders = {
   css: ExtractTextPlugin.extract({
     use: 'css-loader',
     fallback: 'vue-style-loader'
-  })
+  }),
+  scss: 'vue-style-loader!css-loader!sass-loader',
+  sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
 }
 
 module.exports = {
@@ -34,6 +36,12 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           use: 'css-loader',
           fallback: 'style-loader'
+        })
+      }, {
+        test: /\.s[a|c]ss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader']
         })
       }, {
         test: /\.pug$/,
