@@ -1,11 +1,10 @@
 <template lang="pug">
   #puzzle.container
     h1.title LEVEL {{ puzzle.level }}-{{ puzzle.stage }}
-    h2.subtitle {{ puzzle.size }} X {{ puzzle.size }}
+    h2.subtitle {{ puzzle.size }} × {{ puzzle.size }}
 
     .columns(v-for='row in puzzle.data')
-      .column(v-for='cell in row')
-        cell(:cell='cell')
+      cell(v-for='(cell, index) in row', :cell='cell', :key='index')
 </template>
 
 <script>

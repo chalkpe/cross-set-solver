@@ -1,7 +1,6 @@
 <template lang="pug">
   #app.unselectable(@contextmenu.prevent='')
-    section.section
-      puzzle(:puzzle='puzzle')
+    section.section: puzzle(:puzzle='puzzle')
 </template>
 
 <script>
@@ -13,7 +12,10 @@
 
   export default {
     components: { Puzzle: PuzzleComp },
-    data: () => ({ puzzle: new Puzzle(sample) })
+    data: () => {
+      const i = Math.floor(Math.random() * sample.length)
+      return { puzzle: new Puzzle(sample[i]) }
+    }
   }
 </script>
 

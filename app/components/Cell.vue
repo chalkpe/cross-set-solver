@@ -1,6 +1,7 @@
 <template lang="pug">
-  .box.has-text-centered(:class='cell.state', @click='rotate', @contextmenu.prevent='toggle')
-    span(v-for='number in cell.values') {{ number }}
+  .column
+    .box.has-text-centered(:class='cell.state', @click='rotate', @contextmenu.prevent='toggle')
+      span(v-for='number in cell.values') {{ number }}
 </template>
 
 <script>
@@ -21,6 +22,10 @@
 </script>
 
 <style scoped>
+  .column {
+    max-width: 160px;
+  }
+
   .box {
     padding: 16px 4px;
     border: 5px solid #fff;
@@ -39,6 +44,9 @@
 
   span:first-child {
     font-size: 40px;
-    margin-right: 10px;
+  }
+
+  span:first-child + span {
+    margin-left: 10px;
   }
 </style>
