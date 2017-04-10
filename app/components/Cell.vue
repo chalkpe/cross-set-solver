@@ -1,6 +1,6 @@
 <template lang="pug">
   .column: .box.has-text-centered(
-    :class='applied', @click='rotate', @contextmenu='toggle')
+    :class='boxClass', @click='rotate', @contextmenu='toggle')
       transition(name='toggle',
         @after-enter='apply(true)', @enter-cancelled='apply(true)',
         @after-leave='apply(false)', @leave-cancelled='apply(false)')
@@ -13,13 +13,22 @@
   export default {
     props: ['cell'],
 
-    data: () => ({ applied: false }),
+    data: () => ({
+      status: { applied: false }
+    }),
+
+    computed: {
+      boxClass () {
+        return Object.keys(this.status).filter(k => this.status[k]).join(' ')
+      }
+    },
+
     created () { this.apply(this.cell.closed) },
 
     methods: {
       toggle () { this.cell.toggle() },
       rotate () { if (!this.cell.closed) this.cell.rotate() },
-      apply (closed) { this.applied = closed ? 'closed' : false }
+      apply (closed) { this.status.applied = closed }
     }
   }
 </script>
@@ -48,6 +57,16 @@
       transform: scale(3)
       background-color: $closed
 
+  @keyframes shake
+    10%, 90%
+      transform: rotate(-1deg)
+    20%, 80%
+      transform: rotate(2deg)
+    30%, 50%, 70%
+      transform: rotate(-4deg)
+    40%, 60%
+      transform: rotate(4deg)
+
   .toggle
     &-enter-active
       animation: close 0.3s ease-in-out
@@ -67,8 +86,12 @@
       border: 5px solid #fff
       background-color: $open
 
-      &.closed
+      &.applied
         background-color: $closed
+
+        &:hover
+          transform: rotate(0)
+          animation: shake 0.8s both
 
       .ripple
         z-index: 1
