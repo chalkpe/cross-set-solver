@@ -1,7 +1,7 @@
 class Cell {
   constructor (values) {
     this.values = values
-    this.fixed = values.length === 1
+    this.closed = values.length === 1
   }
 
   has (number) {
@@ -9,15 +9,11 @@ class Cell {
   }
 
   toggle () {
-    this.fixed = !this.fixed
+    this.closed = !this.closed
   }
 
   rotate () {
     this.values.push(this.values.shift())
-  }
-
-  get state () {
-    return this.fixed ? 'fixed' : ''
   }
 }
 
