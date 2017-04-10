@@ -1,7 +1,9 @@
 <template lang="pug">
   .column
     .box.has-text-centered(:class='cell.state', @click='rotate', @contextmenu.prevent='toggle')
-      span(v-for='number in cell.values') {{ number }}
+      .background
+      .content
+        span(v-for='number in cell.values') {{ number }}
 </template>
 
 <script>
@@ -21,32 +23,48 @@
   }
 </script>
 
-<style scoped>
-  .column {
-    max-width: 160px;
-  }
+<style scoped lang="sass">
+  .column
+    max-width: 160px
 
-  .box {
-    padding: 16px 4px;
-    border: 5px solid #fff;
-    background-color: #44AFC3;
-  }
+  .box
+    padding: 0px
+    overflow: hidden
+    position: relative
 
-  .box.fixed {
-    background-color: #FE6E6E;
-  }
+    border: 5px solid #fff
+    background-color: #44AFC3
+    transition: all 0.4s ease-in-out
 
-  span {
-    color: white;
-    font-size: 25px;
-    font-weight: bold;
-  }
+    .content
+      z-index: 2
+      position: relative
+      padding: 16px 4px
 
-  span:first-child {
-    font-size: 40px;
-  }
+      span
+        color: white
+        font-size: 25px
+        font-weight: bold
 
-  span:first-child + span {
-    margin-left: 10px;
-  }
+        &:first-of-type
+          font-size: 40px
+
+        &:first-of-type + span
+          margin-left: 10px
+
+    .background
+      width: 100%
+      height: 100%
+
+      z-index: 1
+      position: absolute
+
+      opacity: 0
+      transform: scale(0)
+      background-color: #FE6E6E
+      transition: all 0.15s ease-in-out
+
+    &.fixed .background
+      opacity: 1
+      transform: scale(1)
 </style>
