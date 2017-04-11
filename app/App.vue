@@ -19,26 +19,19 @@
   }
 </script>
 
-<style scoped>
-  .title, .subtitle {
-    color: #777777;
-  }
+<style scoped lang="sass">
+  #app
+    display: flex
+    min-height: 100vh
+    flex-direction: column
 
-  #app {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-  }
+    &.unselectable
+      -webkit-user-select: none
+      -moz-user-select: none
+      -ms-user-select: none
+      user-select: none
 
-  .unselectable {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-
-  section {
-    flex: 1 0 auto;
-    background: linear-gradient(0deg, #E7E3B4, #E9E6DD, #EBC4B2);
-  }
+    section
+      flex: 1 0 auto
+      background: linear-gradient(0deg, #E7E3B4, #E9E6DD, #EBC4B2)
 </style>

@@ -1,5 +1,5 @@
 <template lang="pug">
-  .column: .box.has-text-centered(
+  .box.has-text-centered(
     :class='boxClass', @click='rotate', @contextmenu='toggle')
       transition(name='toggle',
         @after-enter='apply(true)', @enter-cancelled='apply(true)',
@@ -37,6 +37,16 @@
   $open: #44AFC3
   $closed: #FE6E6E
 
+  @keyframes shake
+    10%, 90%
+      transform: rotate(-1deg)
+    20%, 80%
+      transform: rotate(2deg)
+    30%, 50%, 70%
+      transform: rotate(-4deg)
+    40%, 60%
+      transform: rotate(4deg)
+
   @keyframes open
     from
       opacity: 0%
@@ -57,16 +67,6 @@
       transform: scale(3)
       background-color: $closed
 
-  @keyframes shake
-    10%, 90%
-      transform: rotate(-1deg)
-    20%, 80%
-      transform: rotate(2deg)
-    30%, 50%, 70%
-      transform: rotate(-4deg)
-    40%, 60%
-      transform: rotate(4deg)
-
   .toggle
     &-enter-active
       animation: close 0.3s ease-in-out
@@ -76,45 +76,42 @@
   .number-move
     transition: transform 0.3s ease
 
-  .column
-    max-width: 160px
+  .box
+    padding: 0px
+    overflow: hidden
+    position: relative
+    border: 5px solid #fff
+    background-color: $open
 
-    .box
-      padding: 0px
-      overflow: hidden
+    &.applied
+      background-color: $closed
+
+      &:hover
+        transform: rotate(0)
+        animation: shake 0.8s both
+
+    .ripple
+      z-index: 1
+      width: 100%
+      height: 100%
+      position: absolute
+      border-radius: 50%
+
+    .content
+      z-index: 2
       position: relative
-      border: 5px solid #fff
-      background-color: $open
+      padding: 16px 4px
 
-      &.applied
-        background-color: $closed
+      .num
+        color: white
+        font-size: 25px
+        font-weight: bold
+        display: inline-block
+        vertical-align: baseline
 
-        &:hover
-          transform: rotate(0)
-          animation: shake 0.8s both
+        &:first-of-type
+          font-size: 40px
 
-      .ripple
-        z-index: 1
-        width: 100%
-        height: 100%
-        position: absolute
-        border-radius: 50%
-
-      .content
-        z-index: 2
-        position: relative
-        padding: 16px 4px
-
-        .num
-          color: white
-          font-size: 25px
-          font-weight: bold
-          display: inline-block
-          vertical-align: baseline
-
-          &:first-of-type
-            font-size: 40px
-
-          &:first-of-type + .num
-            margin-left: 10px
+        &:first-of-type + .num
+          margin-left: 10px
 </style>
