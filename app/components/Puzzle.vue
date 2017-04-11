@@ -8,7 +8,7 @@
       .column(v-for='(cell, ci) in row'): cell(:cell='cell', :key='ci')
       .indicator.right: .circle(:active='puzzle.matches(`row`, ri)')
 
-    .columns: .column(v-for='(_, i) in puzzle.data[0]')
+    .columns.is-mobile: .column(v-for='(_, i) in puzzle.data[0]')
       .indicator: .circle(:active='puzzle.matches(`column`, i)')
 </template>
 
