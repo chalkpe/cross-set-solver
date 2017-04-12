@@ -1,21 +1,20 @@
 <template lang="pug">
-  #app.unselectable(@contextmenu.prevent='')
-    section.section: puzzle(:puzzle='puzzle')
+  #app.unselectable(@contextmenu.prevent=''): section.section
+    #select.container: span.select: select(v-model='selected')
+      option(v-for='(sample, i) in samples', :value='i') {{ sample.name }}
+    puzzle(:puzzle='samples[selected]')
 </template>
 
 <script>
   import 'bulma'
-  import sample from './assets/sample'
+  import samples from './assets/samples'
 
   import Puzzle from './src/Puzzle'
   import PuzzleComp from './components/Puzzle.vue'
 
   export default {
     components: { Puzzle: PuzzleComp },
-    data: () => {
-      const i = Math.floor(Math.random() * sample.length)
-      return { puzzle: new Puzzle(sample[i]) }
-    }
+    data: () => ({ samples, selected: 0 })
   }
 </script>
 
@@ -24,6 +23,7 @@
     display: flex
     min-height: 100vh
     flex-direction: column
+    background: linear-gradient(0deg, #E7E3B4, #E9E6DD, #EBC4B2)
 
     &.unselectable
       -webkit-user-select: none
@@ -33,5 +33,8 @@
 
     section
       flex: 1 0 auto
-      background: linear-gradient(0deg, #E7E3B4, #E9E6DD, #EBC4B2)
+      background: none
+
+  #select
+    margin-bottom: 1.5rem
 </style>

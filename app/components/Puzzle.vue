@@ -8,8 +8,10 @@
       .column(v-for='(cell, ci) in row'): cell(:cell='cell', :key='ci')
       .indicator.right: .circle(:active='puzzle.matches(`row`, ri)')
 
-    .columns.is-mobile: .column(v-for='(_, i) in puzzle.data[0]')
-      .indicator: .circle(:active='puzzle.matches(`column`, i)')
+    .columns.is-mobile
+      .column(v-for='(_, i) in puzzle.data[0]')
+        .indicator: .circle(:active='puzzle.matches(`column`, i)')
+      .indicator.right: .circle.hidden(active)
 </template>
 
 <script>
@@ -55,10 +57,11 @@
       .circle
         width: 1.5rem
         height: 1.5rem
-        border: 0.2rem solid white
         border-radius: 50%
-        background-color: red
+        border: 0.2rem solid white
+        background-color: #808080
+        transition: all 1s ease
 
         &[active]
-          background-color: lime
+          opacity: 0
 </style>

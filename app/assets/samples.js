@@ -1,4 +1,6 @@
-export default [
+import Puzzle from '../src/Puzzle'
+
+const list = [
   {
     level: 1,
     stage: 1,
@@ -40,3 +42,5 @@ export default [
     ]
   }
 ]
+
+export default list.map(v => new Puzzle(v))

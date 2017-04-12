@@ -35,6 +35,10 @@ class Puzzle {
       this.matches('row', i) && this.matches('column', i))
   }
 
+  get name () {
+    return `${this.level}-${this.stage}`
+  }
+
   matches (getter, index) {
     const line = this[getter](index)
     const proper = range(line.length, 1).join()
