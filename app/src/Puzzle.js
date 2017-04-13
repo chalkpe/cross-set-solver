@@ -32,12 +32,8 @@ class Puzzle {
   }
 
   solve () {
-    const methods = ['Single', 'Unique', 'Opposite', 'Remaining']
-    while (!this.done) methods.forEach(method => this.closeLine(method))
-  }
-
-  closeLine (method) {
-    for (const line of this) line[`close${method}Cells`]()
+    const m = ['Single', 'Unique', 'Opposite', 'Remaining']
+    m.forEach(method => [...this].forEach(l => l[`close${method}Cells`]()))
   }
 }
 
