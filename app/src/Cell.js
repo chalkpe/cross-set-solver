@@ -20,6 +20,10 @@ class Cell {
     if (!this.has(number)) return
     while (this.values[0] !== number) this.rotate()
   }
+
+  get length () {
+    return this.values.length
+  }
 }
 
 export default Cell

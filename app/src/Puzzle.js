@@ -9,15 +9,12 @@ class Puzzle {
       throw new Error(`data must be the ${size}*${size} 2d array`)
     }
 
-    this.level = level
-    this.stage = stage
-    this.size = size
-
+    [this.level, this.stage, this.size] = [level, stage, size]
     this.data = data.map(row => row.map(values => new Cell(values)))
   }
 
   * [Symbol.iterator] () {
-    for (let i = 0; i < this.size; i++) {
+    for (let i of range(this.size)) {
       yield { i, row: this.row(i), column: this.column(i) }
     }
   }
@@ -46,20 +43,16 @@ class Puzzle {
   }
 
   solve () {
-    range(this.size).forEach(n => {
-      for (let { row, column } of this) {
-        this.unique(n, row)
-        this.unique(n, column)
-      }
-    })
+    for (let { row, column } of this) {
+      range(this.size).forEach(n => this.unique(n, row, column))
+    }
   }
 
-  unique (n, line) {
-    let cells = line.filter(cell => cell.has(n))
-    if (cells.length !== 1) return
-
-    cells[0].switchTo(n)
-    cells[0].closed = true
+  unique (n, ...lines) {
+    lines
+      .map(l => l.filter(c => c.has(n)))
+      .filter(cells => cells.length === 1)
+      .forEach(c => { c[0].switchTo(n); c[0].closed = true })
   }
 }
 
