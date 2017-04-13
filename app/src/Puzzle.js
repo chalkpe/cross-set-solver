@@ -44,6 +44,23 @@ class Puzzle {
     const proper = range(line.length, 1).join()
     return line.map(cell => cell.values[0]).sort().join() === proper
   }
+
+  solve () {
+    range(this.size).forEach(n => {
+      for (let { row, column } of this) {
+        this.unique(n, row)
+        this.unique(n, column)
+      }
+    })
+  }
+
+  unique (n, line) {
+    let cells = line.filter(cell => cell.has(n))
+    if (cells.length !== 1) return
+
+    cells[0].switchTo(n)
+    cells[0].closed = true
+  }
 }
 
 export default Puzzle

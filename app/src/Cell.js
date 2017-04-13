@@ -15,6 +15,11 @@ class Cell {
   rotate () {
     this.values.push(this.values.shift())
   }
+
+  switchTo (number) {
+    if (!this.has(number)) return
+    while (this.values[0] !== number) this.rotate()
+  }
 }
 
 export default Cell

@@ -1,6 +1,6 @@
 <template lang="pug">
   .container
-    h1.title Level {{ puzzle.level }}-{{ puzzle.stage }}
+    h1.title(@click='puzzle.solve()') Level {{ puzzle.level }}-{{ puzzle.stage }}
     h2.subtitle {{ puzzle.size }} × {{ puzzle.size }}
       span(v-show='puzzle.done') : Puzzle solved!
 
