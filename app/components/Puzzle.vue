@@ -8,7 +8,8 @@
       .columns.is-mobile(v-for='row in puzzle.row')
         .column(v-for='(cell, i) in row.cells')
           cell(:cell='cell', :key='i')
-        .indicator.right: .circle(:active='row.done()')
+        .indicator.right
+          .circle(:active='row.done()')
 
       .columns.is-mobile
         .column(v-for='column in puzzle.column')

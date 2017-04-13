@@ -1,3 +1,4 @@
+import Cell from './Cell'
 import Line from './Line'
 import range from './util/range'
 
@@ -9,9 +10,10 @@ class Puzzle {
     }
 
     [this.level, this.stage, this.size] = [level, stage, size]
+    const puzzle = data.map(cells => cells.map(values => new Cell(values)))
 
-    this.row = data.map(cells => new Line(cells))
-    this.column = range(size).map(i => new Line(data.map(row => row[i])))
+    this.row = puzzle.map(cells => new Line(cells))
+    this.column = range(size).map(i => new Line(puzzle.map(row => row[i])))
   }
 
   * [Symbol.iterator] () {
@@ -30,9 +32,12 @@ class Puzzle {
   }
 
   solve () {
-    for (const line of this) {
-      range(this.size, 1).map(n => line.unique(n))
-    }
+    const methods = ['Single', 'Unique', 'Opposite', 'Remaining']
+    while (!this.done) methods.forEach(method => this.closeLine(method))
+  }
+
+  closeLine (method) {
+    for (const line of this) line[`close${method}Cells`]()
   }
 }
 
