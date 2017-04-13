@@ -1,17 +1,18 @@
 <template lang="pug">
   .container
-    h1.title(@click='puzzle.solve()') Level {{ puzzle.level }}-{{ puzzle.stage }}
+    h1.title(@click='puzzle.solve()') Level {{ puzzle.name }}
     h2.subtitle {{ puzzle.size }} × {{ puzzle.size }}
       span(v-show='puzzle.done') : Puzzle solved!
 
-    #puzzle(:class='puzzle.done && "done"')
-      .columns.is-mobile(v-for='(row, ri) in puzzle.data')
-        .column(v-for='(cell, ci) in row'): cell(:cell='cell', :key='ci')
-        .indicator.right: .circle(:active='puzzle.matches(`row`, ri)')
+    #puzzle(:done='puzzle.done')
+      .columns.is-mobile(v-for='row in puzzle.row')
+        .column(v-for='(cell, i) in row.cells')
+          cell(:cell='cell', :key='i')
+        .indicator.right: .circle(:active='row.done()')
 
       .columns.is-mobile
-        .column(v-for='(_, i) in puzzle.data[0]')
-          .indicator: .circle(:active='puzzle.matches(`column`, i)')
+        .column(v-for='column in puzzle.column')
+          .indicator: .circle(:active='column.done()')
         .indicator.right: .circle.hidden(active)
 </template>
 
@@ -41,7 +42,7 @@
     text-transform: uppercase
 
   #puzzle
-    &.done
+    &[done]
       .column
         animation: shake 1s infinite
 

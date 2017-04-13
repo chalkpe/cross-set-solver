@@ -4,6 +4,19 @@ class Cell {
     this.closed = values.length === 1
   }
 
+  get size () {
+    return this.values.length
+  }
+
+  get value () {
+    return this.values[0]
+  }
+
+  set value (number) {
+    if (!this.has(number)) return
+    while (this.value !== number) this.rotate()
+  }
+
   has (number) {
     return this.values.includes(number)
   }
@@ -14,15 +27,6 @@ class Cell {
 
   rotate () {
     this.values.push(this.values.shift())
-  }
-
-  switchTo (number) {
-    if (!this.has(number)) return
-    while (this.values[0] !== number) this.rotate()
-  }
-
-  get length () {
-    return this.values.length
   }
 }
 
