@@ -10,27 +10,27 @@
 </template>
 
 <script>
-  export default {
-    props: ['cell'],
+export default {
+  props: ['cell'],
 
-    data: () => ({
-      status: { applied: false }
-    }),
+  data: () => ({
+    status: { applied: false }
+  }),
 
-    computed: {
-      boxClass () {
-        return Object.keys(this.status).filter(k => this.status[k]).join(' ')
-      }
-    },
-
-    created () { this.apply(this.cell.closed) },
-
-    methods: {
-      toggle () { this.cell.toggle() },
-      rotate () { if (!this.cell.closed) this.cell.rotate() },
-      apply (closed) { this.status.applied = closed }
+  computed: {
+    boxClass () {
+      return Object.keys(this.status).filter(k => this.status[k]).join(' ')
     }
+  },
+
+  created () { this.apply(this.cell.closed) },
+
+  methods: {
+    toggle () { this.cell.toggle() },
+    rotate () { if (!this.cell.closed) this.cell.rotate() },
+    apply (closed) { this.status.applied = closed }
   }
+}
 </script>
 
 <style lang="sass">

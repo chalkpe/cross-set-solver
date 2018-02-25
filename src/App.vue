@@ -6,19 +6,18 @@
 </template>
 
 <script>
-  import 'bulma'
-  import samples from './assets/samples'
+import samples from './assets/samples'
+import Puzzle from './components/Puzzle.vue'
 
-  import Puzzle from './src/Puzzle'
-  import PuzzleComp from './components/Puzzle.vue'
-
-  export default {
-    components: { Puzzle: PuzzleComp },
-    data: () => ({ samples, selected: 0 })
-  }
+export default {
+  components: { Puzzle },
+  data: () => ({ samples, selected: 0 })
+}
 </script>
 
-<style scoped lang="sass">
+<style lang="sass">
+  @import '~bulma'
+
   #app
     display: flex
     min-height: 100vh

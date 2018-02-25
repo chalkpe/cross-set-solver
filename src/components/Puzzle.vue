@@ -18,13 +18,13 @@
 </template>
 
 <script>
-  import Cell from './Cell.vue'
+import Cell from './Cell.vue'
 
-  export default {
-    props: ['puzzle'],
-    components: { Cell }
+export default {
+  props: ['puzzle'],
+  components: { Cell }
 
-  }
+}
 </script>
 
 <style scoped lang="sass">
